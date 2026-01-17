@@ -25,7 +25,7 @@ async def on_ready():
 
     print(f"Logged in as {bot.user}")
 
-@commands.command(name = "test")
+@bot.command(name = "test")
 async def test(ctx):
     await ctx.send("Hi")
 
