@@ -5,10 +5,11 @@ import os
 
 load_dotenv()
 
+HYPIXEL_KEY = os.getenv("HYPIXEL_KEY")
 DISCORD_TOKEN = os.getenv("DISCORD_TOKEN")
 MONGO_URI = os.getenv("MONGO_URI")
 MC_PASS = os.getenv("MC_PASS")
-BOT_PREFIX = os.getenv("BOT_PREFIX", "!")
+BOT_PREFIX = os.getenv("BOT_PREFIX")
 
 intents = discord.Intents.all()
 bot = commands.Bot(command_prefix=BOT_PREFIX, intents=intents)
