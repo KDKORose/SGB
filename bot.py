@@ -27,7 +27,7 @@ async def on_ready():
 
 @bot.command(name = "test")
 async def test(ctx):
-    await ctx.send("Hi")
+    await ctx.send("Yo What's up!")
 
 bot.run(DISCORD_TOKEN)
 
