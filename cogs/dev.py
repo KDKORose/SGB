@@ -7,7 +7,7 @@ class Dev(commands.Cog):
     @commands.hybrid_command(name="ping",  description="Ping the bot!")
     async def ping(self, ctx):
         print("Ping command called!")
-        await ctx.send(f"Pong! Latency of {self.bot.latency()}.\n Note: Prefix Command!")
+        await ctx.send(f"Pong! Latency of {round(self.bot.latency * 1000)}. ms")
     
 async def setup(bot: commands.Bot):
     await bot.add_cog(Dev(bot))
