@@ -2,12 +2,11 @@ from dotenv import load_dotenv
 import discord
 from discord.ext import commands
 import os
-from app import BotApp
 
 load_dotenv()
 
 class DCBot(commands.Bot):
-    def __init__(self, app: BotApp):
+    def __init__(self, app):
 
         self.HYPIXEL_KEY = os.getenv("HYPIXEL_KEY")
         self.DISCORD_TOKEN = os.getenv("DISCORD_TOKEN")
