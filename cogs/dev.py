@@ -1,5 +1,4 @@
 from discord.ext import commands
-import discord
 
 class Dev(commands.Cog):
     def __init__(self, bot: commands.Bot):
