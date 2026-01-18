@@ -19,6 +19,12 @@ class DCBot(commands.Bot):
         # Sync slash commands
         GUILD_ID = int(os.getenv("GUILD_ID"))
         await self.load_all_cogs()
+
+        print("Local commands:")
+        for cmd in self.tree.walk_commands():
+            print("-", cmd.name)
+
+        self.tree.copy_global_to(guild=discord.Object(id=GUILD_ID))
         synced = await self.tree.sync(guild=discord.Object(id=GUILD_ID))
         print(f"Synced {len(synced)} commands to guild {GUILD_ID}")
 
