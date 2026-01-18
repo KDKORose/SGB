@@ -1,35 +1,27 @@
-import os
-import asyncio
 import discord
-from discord.ext import commands
 from dotenv import load_dotenv
+import os
 
 load_dotenv()
+intents = discord.Intents.default()
+client = discord.Client(intents=intents)
+tree = discord.app_commands.CommandTree(client)
 
-DISCORD_TOKEN = os.getenv("DISCORD_TOKEN")
-GUILD_ID = int(os.getenv("GUILD_ID"))
+@client.event
+async def on_ready():
+    print(f'We have logged in as {client.user}')
+    guilds = [guild.id for guild in client.guilds]
+    print(f'The {client.user.name} bot is in {len(guilds)} Guilds.\nThe guilds IDs list: {guilds}')
+    for guildId in guilds:
+        guild = discord.Object(id=guildId)
+        print(f'Deleting commands from {guildId}.....')
+        tree.clear_commands(guild=guild,type=None)
+        await tree.sync(guild=guild)
+        print(f'Deleted commands from {guildId}!')
+        continue
+    print('Deleting global commands.....')
+    tree.clear_commands(guild=None,type=None)
+    await tree.sync(guild=None)
+    print('Deleted global commands!')
 
-if not DISCORD_TOKEN or not GUILD_ID:
-    raise ValueError("DISCORD_TOKEN and GUILD_ID must be set in .env")
-
-class CommandResetBot(commands.Bot):
-    def __init__(self):
-        super().__init__(command_prefix="!", intents=discord.Intents.none())  # no events needed
-
-    async def setup_hook(self):
-        guild = discord.Object(id=GUILD_ID)
-        print("Clearing all slash commands in guild:", GUILD_ID)
-
-        # Remove all guild commands
-        self.tree.clear_commands(guild=guild)
-        await self.tree.sync(guild=guild)
-        print("All guild commands cleared and resynced.")
-
-        await self.close()
-
-async def main():
-    await bot.start(DISCORD_TOKEN)
-
-if __name__ == "__main__":
-    bot = CommandResetBot()
-    asyncio.run(main())
+client.run(os.getenv("DISCORD_TOKEN"))
