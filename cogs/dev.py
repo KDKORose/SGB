@@ -11,5 +11,5 @@ class Dev(commands.Cog):
             await ctx.send(f"Pong! Latency of {self.bot.latency()}.\nNote: Slash Command!")
         await ctx.send(f"Pong! Latency of {self.bot.latency()}.\n Note: Prefix Command!")
     
-    async def setup(bot: commands.Bot):
-        await bot.add_cog(Dev(bot))
+async def setup(bot: commands.Bot):
+    await bot.add_cog(Dev(bot))
