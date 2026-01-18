@@ -21,3 +21,7 @@ class MCBot:
         if self.bot:
             self.bot.quit()
     
+
+if __name__ == "__main__":
+    mcbot = MCBot("ScandalBot")
+    mcbot.start()
