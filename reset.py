@@ -21,16 +21,15 @@ class CommandResetBot(commands.Bot):
         print("Clearing all slash commands in guild:", GUILD_ID)
 
         # Remove all guild commands
-        await self.tree.clear_commands(guild=guild)
+        self.tree.clear_commands(guild=guild)
         await self.tree.sync(guild=guild)
         print("All guild commands cleared and resynced.")
 
-        # Once done, close bot
         await self.close()
 
 async def main():
-    bot = CommandResetBot()
     await bot.start(DISCORD_TOKEN)
 
 if __name__ == "__main__":
+    bot = CommandResetBot()
     asyncio.run(main())
