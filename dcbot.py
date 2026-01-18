@@ -19,8 +19,8 @@ class DCBot(commands.Bot):
         # Sync slash commands
         GUILD_ID = int(os.getenv("GUILD_ID"))
         await self.load_all_cogs()
-        await self.tree.sync(guild=discord.Object(id=GUILD_ID))
-        print("Synced commands:", self.tree.get_commands(guild=discord.Object(id=GUILD_ID)))
+        synced = await self.tree.sync(guild=discord.Object(id=GUILD_ID))
+        print(f"Synced {len(synced)} commands to guild {GUILD_ID}")
 
     async def load_all_cogs(self):
         cogs_dir = os.path.join(os.path.dirname(__file__), "cogs")
