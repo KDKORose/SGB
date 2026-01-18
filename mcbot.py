@@ -2,12 +2,27 @@ from javascript import require, On, Once, AsyncTask, once, off
 
 mineflayer = require("mineflayer")
 
-username = "ScandalBot"
-bot = mineflayer.createBot({
-        "host": "mc.hypixel.net",
-        "port": "25565",
-        "username": username,
-        "auth": "microsoft"})
+class MCBot:
+    def __init__(self, username: str):
+        self.username = username
+        self.bot = None
 
-once(bot, "login")
-print(f"Logged in to hypixel as {username}")
+    def start(self):
+        self.bot = mineflayer.createBot({
+            "host": "mc.hypixel.net",
+            "username": self.username,
+            "version": "1.8.9",
+            "auth": "microsoft"
+        })
+
+        once(self.bot, "login")
+        print(f"Logged in to hypixel as {self.username}")
+
+    async def stop(self):
+        if self.bot:
+            self.bot.quit()
+    
+
+if __name__ == "__main__":
+    mcbot = MCBot("ScandalBot")
+    mcbot.start()
