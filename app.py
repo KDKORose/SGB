@@ -46,7 +46,7 @@ class BotApp:
         # Discord
         try:
             if message is not None:
-                    await message.edit(f"{message.content}\nTerminated Discord Connection")
+                    await message.edit(f"Successfully terminated all connections.")
             await self.discord.close()
             print("Discord bot closed")
         except Exception as e:

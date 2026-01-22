@@ -7,8 +7,8 @@ class Dev(commands.Cog):
     @commands.hybrid_command(name="stop", description="Stop the bot.")
     async def stop(self, ctx):
         print("Stop command called!")
-        await ctx.send(f"Stopping bot...")
-        await self.bot.app.shutdown()
+        message = await ctx.send(f"Stopping bot...")
+        await self.bot.app.shutdown(message)
     
     @commands.hybrid_command(name="ping",  description="Ping the bot!")
     async def ping(self, ctx):
