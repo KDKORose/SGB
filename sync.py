@@ -13,7 +13,7 @@ async def on_ready():
 
     GUILD_ID = int(os.getenv("GUILD_ID"))
     await load_all_cogs()
-    print(content=f"Obtained Guild ID. {GUILD_ID}")
+    print(f"Obtained Guild ID. {GUILD_ID}")
 
     print("Local commands:")
     for cmd in tree.walk_commands():
@@ -21,7 +21,7 @@ async def on_ready():
 
     tree.copy_global_to(guild=discord.Object(id=GUILD_ID))
     synced = await tree.sync(guild=discord.Object(id=GUILD_ID))
-    print(content=f"Synced {len(synced)} commands to guild {GUILD_ID}")
+    print(f"Synced {len(synced)} commands to guild {GUILD_ID}")
 
 
 async def load_all_cogs():
