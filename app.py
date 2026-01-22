@@ -4,15 +4,19 @@ from mcbot import MCBot
 import os
 
 class BotApp:
-    def __init__(self):
-        self.mongo = MongoService()
-        self.minecraft = MCBot("ScandalBot")
+    def __init__(self, mongo=True, mc=True):
+        if mongo:
+            self.mongo = MongoService()
+        if mc:
+            self.minecraft = MCBot("ScandalBot")
         self.discord = DCBot(self)
         self._shutting_down = False
 
     async def startup(self):
-        self.mongo.connect()
-        self.minecraft.start()
+        if self.mongo:
+            self.mongo.connect()
+        if self.minecraft:
+            self.minecraft.start()
 
     async def shutdown(self, message = None):
         if self._shutting_down:

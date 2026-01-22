@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 def main():
-    app = BotApp()
+    app = BotApp(mongo=False, mc=True)
     asyncio.run(app.run())
 
 if __name__ == "__main__":
