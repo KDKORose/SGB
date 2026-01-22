@@ -6,7 +6,7 @@ from discord.ext import commands
 load_dotenv()
 intents = discord.Intents.default()
 client = commands.Bot(command_prefix=os.getenv("BOT_PREFIX"), intents=intents)
-tree = discord.app_commands.CommandTree(client)
+tree = client.tree
 
 @client.event
 async def on_ready():
