@@ -1,10 +1,11 @@
 import discord
 from dotenv import load_dotenv
 import os
+from discord.ext import commands
 
 load_dotenv()
 intents = discord.Intents.default()
-client = discord.Client(intents=intents)
+client = commands.Bot(command_prefix=os.getenv("BOT_PREFIX"), intents=intents)
 tree = discord.app_commands.CommandTree(client)
 
 @client.event
