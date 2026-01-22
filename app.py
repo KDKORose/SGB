@@ -46,7 +46,8 @@ class BotApp:
                     await message.edit(content=f"{message.content}\n{termination_string}")
                 print("Minecraft bot disconnected")
         except Exception as e:
-            print("Minecraft shutdown error:", e)
+            if not isinstance(e, AttributeError):
+                print("Minecraft shutdown error:", e)
 
         # Mongo
         try:
@@ -57,7 +58,8 @@ class BotApp:
                     await message.edit(content=f"{message.content}\n{termination_string}")
                 print("MongoDB connection closed")
         except Exception as e:
-            print("Mongo shutdown error:", e)
+            if not isinstance(e, AttributeError):
+                print("Mongo shutdown error:", e)
 
         # Discord
         try:
