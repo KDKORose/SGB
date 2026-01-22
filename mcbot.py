@@ -21,6 +21,11 @@ class MCBot:
     async def stop(self):
         if self.bot:
             self.bot.quit()
+
+    async def stop(self):
+        if self.bot:
+            self.bot.quit()
+            self.bot = None
     
 
 if __name__ == "__main__":
