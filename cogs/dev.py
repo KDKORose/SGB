@@ -1,10 +1,12 @@
 from discord.ext import commands
+import os
 
 class Dev(commands.Cog):
     def __init__(self, bot: commands.Bot):
         self.bot = bot
     
     @commands.hybrid_command(name="stop", description="Stop the bot.")
+    @commands.has_any_role(os.getenv("DEVELOPER_ROLE_ID"))
     async def stop(self, ctx):
         print("Stop command called!")
         message = await ctx.send(f"Stopping bot...")

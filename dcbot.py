@@ -1,9 +1,6 @@
-from dotenv import load_dotenv
 import discord
 from discord.ext import commands
 import os
-
-load_dotenv()
 
 class DCBot(commands.Bot):
     def __init__(self, app):
@@ -11,6 +8,7 @@ class DCBot(commands.Bot):
         self.HYPIXEL_KEY = os.getenv("HYPIXEL_KEY")
         self.DISCORD_TOKEN = os.getenv("DISCORD_TOKEN")
         self.BOT_PREFIX = os.getenv("BOT_PREFIX")
+        self.DEVELOPER_ROLE_ID = os.getenv("DEVELOPER_ROLE_ID")
 
         super().__init__(command_prefix=self.BOT_PREFIX, intents=discord.Intents.all())
         self.app = app # Access other services
@@ -43,6 +41,18 @@ class DCBot(commands.Bot):
         for ext in list(self.extensions):
             await self.reload_extension(ext)
             print(f"Reloaded cog: {ext}")
+    
+    async def on_command_error(self, ctx, exception):
+        if isinstance(exception, commands.MissingPermissions):
+            await ctx.send("You are lacking to required permissions to execute this command!")
+        elif isinstance(exception, commands.BotMissingPermissions):
+            missing_perms = ", ".join(exception.missing_permissions).replace("_", " ")
+            await ctx.send("The bot is missing the required permissions to run this command: `{missing_perms}`.")
+        elif isinstance(exception, commands.MissingAnyRole):
+            missing_roles = ", ".join(exception.missing_roles)
+            await ctx.send(f"You are missing at least one of the required roles: `{missing_roles}`.")
+        else:
+            await ctx.send(f"An unexpected error occurred: {exception}")
     
     async def on_ready(self):
         print(f'Logged in as {self.user} (ID: {self.user.id})')

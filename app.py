@@ -1,10 +1,7 @@
 from dcbot import DCBot
 from mongoservice import MongoService
 from mcbot import MCBot
-from dotenv import load_dotenv
 import os
-
-load_dotenv()
 
 class BotApp:
     def __init__(self):

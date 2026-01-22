@@ -1,5 +1,8 @@
 import asyncio
 from app import BotApp
+from dotenv import load_dotenv
+
+load_dotenv()
 
 def main():
     app = BotApp()
