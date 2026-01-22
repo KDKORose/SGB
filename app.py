@@ -5,18 +5,30 @@ import os
 
 class BotApp:
     def __init__(self, mongo=True, mc=True):
-        if mongo:
-            self.mongo = MongoService()
-        if mc:
-            self.minecraft = MCBot("ScandalBot")
+        try:
+            if mongo:
+                self.mongo = MongoService()
+        except:
+            print("Mongo Disabled.")
+        try:
+            if mc:
+                self.minecraft = MCBot("ScandalBot")
+        except:
+            print("Minecraft Client Disabled.")
         self.discord = DCBot(self)
         self._shutting_down = False
 
     async def startup(self):
-        if self.mongo:
-            self.mongo.connect()
-        if self.minecraft:
-            self.minecraft.start()
+        try:
+            if self.mongo:
+                self.mongo.connect()
+        except:
+            print("Mongo Disabled.")
+        try:
+            if self.minecraft:
+                self.minecraft.start()
+        except:
+            print("Minecraft Client Disabled.")
 
     async def shutdown(self, message = None):
         if self._shutting_down:
