@@ -46,11 +46,13 @@ class DCBot(commands.Bot):
         if isinstance(exception, commands.MissingPermissions):
             await ctx.send("You are lacking to required permissions to execute this command!")
         elif isinstance(exception, commands.BotMissingPermissions):
-            missing_perms = ", ".join(exception.missing_permissions).replace("_", " ")
-            await ctx.send("The bot is missing the required permissions to run this command: `{missing_perms}`.")
+            missing_perms = ", ".join(f"<@&{role_id}>" for role_id in exception.missing_roles)
+            await ctx.send("@silent The bot is missing the required permissions to run this command: `{missing_perms}`.")
         elif isinstance(exception, commands.MissingAnyRole):
             missing_roles = ", ".join(exception.missing_roles)
             await ctx.send(f"You are missing at least one of the required roles: `{missing_roles}`.")
+        elif isinstance(exception, commands.MissingRole):
+            await ctx.send(f"You are missing at least one of the required roles: `{exception.missing_role}`.")
         else:
             await ctx.send(f"An unexpected error occurred: {exception}")
     
