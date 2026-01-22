@@ -28,7 +28,7 @@ class BotApp:
             if self.minecraft:
                 await self.minecraft.stop()
                 if message is not None:
-                    await message.edit(f"{message.content}\nTerminated Minecraft Client Connection")
+                    await message.edit(content=f"{message.content}\nTerminated Minecraft Client Connection")
                 print("Minecraft bot disconnected")
         except Exception as e:
             print("Minecraft shutdown error:", e)
@@ -38,7 +38,7 @@ class BotApp:
             if self.mongo and self.mongo.client:
                 self.mongo.client.close()
                 if message is not None:
-                    await message.edit(f"{message.content}\nTerminated Database Connection")
+                    await message.edit(content=f"{message.content}\nTerminated Database Connection")
                 print("MongoDB connection closed")
         except Exception as e:
             print("Mongo shutdown error:", e)
@@ -46,7 +46,7 @@ class BotApp:
         # Discord
         try:
             if message is not None:
-                    await message.edit(f"Successfully terminated all connections.")
+                    await message.edit(content=f"Successfully terminated all connections.")
             await self.discord.close()
             print("Discord bot closed")
         except Exception as e:
