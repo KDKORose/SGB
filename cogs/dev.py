@@ -6,7 +6,7 @@ class Dev(commands.Cog):
         self.bot = bot
     
     @commands.hybrid_command(name="stop", description="Stop the bot.")
-    @commands.has_any_role(int(os.getenv("DEVELOPER_ROLE_ID")))
+    @commands.has_role(int(os.getenv("DEVELOPER_ROLE_ID")))
     async def stop(self, ctx):
         print("Stop command called!")
         message = await ctx.send(f"Stopping bot...")
